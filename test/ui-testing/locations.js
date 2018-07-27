@@ -11,6 +11,7 @@ module.exports.test = function locationTest(uiTestCtx) {
     let campusId = null;
     let libraryId = null;
     const wait = 222;
+    const waitLeave = 1111;
 
     describe('Login > Add new institution, campus, library, location > Try to delete institution > Delete location > Try to delete institution again > Logout\n', () => {
       const institutionName = `Bowdoin College ${Math.floor(Math.random() * 10000)}`;
@@ -57,7 +58,7 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait(1000)
           .wait('#clickable-save-institutions-0')
           .click('#clickable-save-institutions-0')
-          .wait(wait)
+          .wait(waitLeave)
           .then(() => { done(); })
           .catch(done);
       });
@@ -86,7 +87,7 @@ module.exports.test = function locationTest(uiTestCtx) {
               .wait(wait)
               .wait('#clickable-save-campuses-0')
               .click('#clickable-save-campuses-0')
-              .wait(wait)
+              .wait(waitLeave)
               .then(() => { done(); })
               .catch(done);
           })
@@ -119,7 +120,7 @@ module.exports.test = function locationTest(uiTestCtx) {
               .wait(wait)
               .wait('#clickable-save-libraries-0')
               .click('#clickable-save-libraries-0')
-              .wait(wait)
+              .wait(waitLeave)
               .then(() => { done(); })
               .catch(done);
           })
@@ -137,18 +138,22 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('button[title^="Add "]')
           .click('button[title^="Add "]')
           .wait('#input-location-institution')
-          .select('#input-location-institution', institutionId)
+          .type('#input-location-institution', institutionName)
+          .wait(1000)
           .wait('#input-location-campus')
-          .select('#input-location-campus', campusId)
+          .type('#input-location-campus', campusName)
+          .wait(1000)
           .wait('#input-location-library')
+          .wait(1000)
           .xtract(`id("input-location-library")/option[contains(.,"${libraryName}" )]/@value`)
           .then((result) => {
             libraryId = result;
             console.log(`        (found library ID ${libraryId} for ${libraryName}`);
             nightmare
-              .select('#input-location-library', libraryId)
+              .wait('#input-location-library')
+              .type('#input-location-library', libraryName)
               .wait('#input-location-name')
-              .insert('#input-location-name', locationName)
+              .type('#input-location-name', locationName)
               .wait('#input-location-code')
               .insert('#input-location-code', locationCode)
               .wait('#input-location-discovery-display-name')
@@ -157,7 +162,7 @@ module.exports.test = function locationTest(uiTestCtx) {
               .wait('#clickable-save-location')
               .wait(wait)
               .click('#clickable-save-location')
-              .wait(wait)
+              .wait(waitLeave)
               .then(() => { done(); })
               .catch(done);
           })
@@ -233,7 +238,7 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-campuses"]')
           .click('a[href="/settings/organization/location-campuses"]')
           .wait('#institutionSelect')
-          .select('#institutionSelect', institutionId)
+          .type('#institutionSelect', institutionName)
           .wait(wait)
           .wait((dp) => {
             const dnode = document.querySelector(dp);
@@ -270,9 +275,9 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-libraries"]')
           .click('a[href="/settings/organization/location-libraries"]')
           .wait('#institutionSelect')
-          .select('#institutionSelect', institutionId)
+          .type('#institutionSelect', institutionName)
           .wait('#campusSelect')
-          .select('#campusSelect', campusId)
+          .type('#campusSelect', campusName)
           .wait(wait)
           .wait((dp) => {
             const dnode = document.querySelector(dp);
@@ -351,9 +356,9 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-libraries"]')
           .click('a[href="/settings/organization/location-libraries"]')
           .wait('#institutionSelect')
-          .select('#institutionSelect', institutionId)
+          .type('#institutionSelect', institutionName)
           .wait('#campusSelect')
-          .select('#campusSelect', campusId)
+          .select('#campusSelect', campusName)
           .wait(wait)
           .wait((dp) => {
             const dnode = document.querySelector(dp);
@@ -393,7 +398,7 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-campuses"]')
           .click('a[href="/settings/organization/location-campuses"]')
           .wait('#institutionSelect')
-          .select('#institutionSelect', institutionId)
+          .type('#institutionSelect', institutionName)
           .wait(wait)
           .wait((dp) => {
             const dnode = document.querySelector(dp);
