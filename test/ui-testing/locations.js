@@ -136,17 +136,17 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('#input-location-institution')
           .wait(`option[value="${institutionId}"]`)
           .select('#input-location-institution', institutionId)
-          .wait((() => {
+          .wait(() => {
             const el = document.querySelector('#input-location-campus');
             if (!el || el.disabled) return false;
             return true;
-          }))
+          })
           .select('#input-location-campus', campusId)
-          .wait((() => {
+          .wait(() => {
             const el = document.querySelector('#input-location-library');
             if (!el || el.disabled) return false;
             return true;
-          }))
+          })
           .xtract(`id("input-location-library")/option[contains(.,"${libraryName}" )]/@value`)
           .then((result) => {
             libraryId = result;
@@ -177,12 +177,14 @@ module.exports.test = function locationTest(uiTestCtx) {
           .click('a[href="/settings/organization"]')
           .wait('a[href="/settings/organization/location-locations"]')
           .click('a[href="/settings/organization/location-locations"]')
-          .wait(() => {
-            const location = document.evaluate(`//div[contains(., '${locationName}')]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
-            if (!location) return false;
+          .wait((name) => {
+            const location = document.evaluate(`//a[.="${name}"]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+            if (location.singleNodeValue) {
+              return true;
+            }
 
-            return true;
-          })
+            return false;
+          }, locationName)
           .xclick(`//a[.="${locationName}"]`)
           .url()
           .then((result) => {
