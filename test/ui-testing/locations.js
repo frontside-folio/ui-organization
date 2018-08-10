@@ -183,7 +183,6 @@ module.exports.test = function locationTest(uiTestCtx) {
               return true;
             }
 
-            console.log('---------------', location);
             return false;
           }, locationName)
           .xclick(`//a[.="${locationName}"]`)
