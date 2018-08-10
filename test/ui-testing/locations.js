@@ -245,6 +245,7 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-campuses"]')
           .click('a[href="/settings/organization/location-campuses"]')
           .wait('#institutionSelect')
+          .wait(`option[value="${institutionId}"]`)
           .select('#institutionSelect', institutionId)
           .wait(wait)
           .wait((dp) => {
@@ -282,8 +283,10 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-libraries"]')
           .click('a[href="/settings/organization/location-libraries"]')
           .wait('#institutionSelect')
+          .wait(`option[value="${institutionId}"]`)
           .select('#institutionSelect', institutionId)
           .wait('#campusSelect')
+          .wait(`option[value="${campusId}"]`)
           .select('#campusSelect', campusId)
           .wait(wait)
           .wait((dp) => {
@@ -365,8 +368,10 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-libraries"]')
           .click('a[href="/settings/organization/location-libraries"]')
           .wait('#institutionSelect')
+          .wait(`option[value="${institutionId}"]`)
           .select('#institutionSelect', institutionId)
           .wait('#campusSelect')
+          .wait(`option[value="${campusId}"]`)
           .select('#campusSelect', campusId)
           .wait(wait)
           .wait((dp) => {
@@ -409,6 +414,7 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-campuses"]')
           .click('a[href="/settings/organization/location-campuses"]')
           .wait('#institutionSelect')
+          .wait(`option[value="${institutionId}"]`)
           .select('#institutionSelect', institutionId)
           .wait(wait)
           .wait((dp) => {
