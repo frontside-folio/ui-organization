@@ -178,11 +178,12 @@ module.exports.test = function locationTest(uiTestCtx) {
           .wait('a[href="/settings/organization/location-locations"]')
           .click('a[href="/settings/organization/location-locations"]')
           .wait((name) => {
-            const location = document.evaluate(`//a[.="${name}"]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
+            const location = document.evaluate(`//a[.="${name}"]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
             if (location.singleNodeValue) {
               return true;
             }
 
+            console.log('---------------', location);
             return false;
           }, locationName)
           .xclick(`//a[.="${locationName}"]`)
