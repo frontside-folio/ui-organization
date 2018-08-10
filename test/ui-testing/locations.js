@@ -162,6 +162,7 @@ module.exports.test = function locationTest(uiTestCtx) {
               .wait(1000)
               .wait('#clickable-save-location')
               .click('#clickable-save-location')
+              .waitUntilNetworkIdle(1000)
               .then(() => { done(); })
               .catch(done);
           })
