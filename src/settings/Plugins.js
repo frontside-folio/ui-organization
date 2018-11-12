@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { modules } from 'stripes-config'; // eslint-disable-line import/no-unresolved, import/no-extraneous-dependencies
 import { Callout } from '@folio/stripes/components';
+import stripesConnect from '../connect';
 import PluginForm from './PluginForm';
 
 class Plugins extends React.Component {
@@ -23,7 +24,6 @@ class Plugins extends React.Component {
   });
 
   static propTypes = {
-    label: PropTypes.node.isRequired,
     stripes: PropTypes.shape({
       logger: PropTypes.shape({
         log: PropTypes.func.isRequired,
@@ -106,7 +106,7 @@ class Plugins extends React.Component {
       <div style={{ width: '100%' }}>
         <PluginForm
           onSubmit={this.save}
-          label={this.props.label}
+          label={<FormattedMessage id="ui-organization.settings.plugins.label" />}
           pluginTypes={this.pluginTypes}
           initialValues={{ plugins }}
         />
@@ -116,4 +116,4 @@ class Plugins extends React.Component {
   }
 }
 
-export default Plugins;
+export default stripesConnect(Plugins);

@@ -62,7 +62,7 @@ class PluginForm extends React.Component {
       label,
     } = this.props;
 
-    const lastMenu = (<Button type="submit" disabled={(pristine || submitting)}>Save</Button>);
+    const lastMenu = (<Button type="submit" disabled={(pristine || submitting)} marginBottom0>Save</Button>);
 
     return (
       <form id="plugin-form" onSubmit={handleSubmit}>

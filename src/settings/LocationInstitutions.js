@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ControlledVocab } from '@folio/stripes/smart-components';
+import stripesConnect from '../connect';
 
 class LocationInstitutions extends React.Component {
   static manifest = Object.freeze({
@@ -82,4 +83,4 @@ class LocationInstitutions extends React.Component {
   }
 }
 
-export default LocationInstitutions;
+export default stripesConnect(LocationInstitutions);

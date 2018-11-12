@@ -5,6 +5,7 @@ import { EntryManager } from '@folio/stripes/smart-components';
 import { Select, Button, Headline, Row, Col } from '@folio/stripes/components';
 import { FormattedMessage } from 'react-intl';
 
+import stripesConnect from '../../connect';
 import LocationDetail from './LocationDetail';
 import LocationForm from './LocationForm';
 
@@ -77,7 +78,6 @@ class LocationManager extends React.Component {
   });
 
   static propTypes = {
-    label: PropTypes.node.isRequired,
     location: PropTypes.object,
     resources: PropTypes.shape({
       entries: PropTypes.shape({
@@ -380,7 +380,7 @@ class LocationManager extends React.Component {
         locationResources={this.props.resources}
         entryList={sortBy(locations, ['name'])}
         detailComponent={this.connectedLocationDetail}
-        paneTitle={this.props.label}
+        paneTitle={<FormattedMessage id="ui-organization.settings.location.locations" />}
         servicePointsByName={this.state.servicePointsByName}
         servicePointsById={this.state.servicePointsById}
         parseInitialValues={this.parseInitialValues}
@@ -402,4 +402,4 @@ class LocationManager extends React.Component {
   }
 }
 
-export default LocationManager;
+export default stripesConnect(LocationManager);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
 import { FormattedMessage } from 'react-intl';
+import stripesConnect from '../connect';
 
 class LocationLibraries extends React.Component {
   static manifest = Object.freeze({
@@ -166,4 +167,4 @@ class LocationLibraries extends React.Component {
   }
 }
 
-export default LocationLibraries;
+export default stripesConnect(LocationLibraries);

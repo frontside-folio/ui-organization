@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { ConfigManager } from '@folio/stripes/smart-components';
+import { withStripes } from '@folio/stripes/core';
 
 import BindingsForm from './BindingsForm';
 
@@ -10,7 +12,6 @@ class Bindings extends React.Component {
       setBindings: PropTypes.func.isRequired,
       connect: PropTypes.func.isRequired,
     }).isRequired,
-    label: PropTypes.node.isRequired,
   };
 
   constructor(props) {
@@ -26,7 +27,7 @@ class Bindings extends React.Component {
   render() {
     return (
       <this.configManager
-        label={this.props.label}
+        label={<FormattedMessage id="ui-organization.settings.bindings.label" />}
         moduleName="ORG"
         configName="bindings"
         onAfterSave={this.setBindings}
@@ -36,4 +37,4 @@ class Bindings extends React.Component {
   }
 }
 
-export default Bindings;
+export default withStripes(Bindings);

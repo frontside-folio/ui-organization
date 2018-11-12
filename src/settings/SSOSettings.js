@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { stripesShape } from '@folio/stripes/core';
 import { Callout } from '@folio/stripes/components';
 
+import stripesConnect from '../connect';
 import { patronIdentifierTypes, samlBindingTypes } from '../constants';
 import SamlForm from './SamlForm';
 
@@ -32,7 +33,6 @@ class SSOSettings extends React.Component {
   });
 
   static propTypes = {
-    label: PropTypes.node.isRequired,
     stripes: stripesShape.isRequired,
     resources: PropTypes.shape({
       samlconfig: PropTypes.object,
@@ -124,7 +124,7 @@ class SSOSettings extends React.Component {
     return (
       <div style={{ width: '100%' }}>
         <SamlForm
-          label={this.props.label}
+          label={<FormattedMessage id="ui-organization.settings.ssoSettings.label" />}
           initialValues={samlFormData}
           onSubmit={(record) => { this.updateSettings(record); }}
           optionLists={{ identifierOptions: patronIdentifierTypes, samlBindingOptions: samlBindingTypes }}
@@ -146,4 +146,4 @@ class SSOSettings extends React.Component {
   }
 }
 
-export default SSOSettings;
+export default stripesConnect(SSOSettings);

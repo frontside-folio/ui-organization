@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { EntryManager } from '@folio/stripes/smart-components';
 import { FormattedMessage } from 'react-intl';
 
+import stripesConnect from '../../connect';
 import ServicePointDetail from './ServicePointDetail';
 import ServicePointForm from './ServicePointForm';
 
@@ -31,7 +32,6 @@ class ServicePointManager extends React.Component {
   });
 
   static propTypes = {
-    label: PropTypes.node.isRequired,
     resources: PropTypes.shape({
       entries: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object),
@@ -130,8 +130,8 @@ class ServicePointManager extends React.Component {
         parentMutator={this.props.mutator}
         entryList={entryList}
         detailComponent={ServicePointDetail}
-        paneTitle={this.props.label}
-        entryLabel={this.props.label}
+        paneTitle={<FormattedMessage id="ui-organization.settings.servicePoints.label" />}
+        entryLabel={<FormattedMessage id="ui-organization.settings.servicePoints.label" />}
         entryFormComponent={this.cServicePointForm}
         onSelect={this.onSelect}
         validate={this.validate}
@@ -147,4 +147,4 @@ class ServicePointManager extends React.Component {
   }
 }
 
-export default ServicePointManager;
+export default stripesConnect(ServicePointManager);

@@ -21,7 +21,7 @@ function validate(values) {
 class BindingsForm extends React.Component {
   getLastMenu() {
     const { pristine, submitting } = this.props;
-    return (<Button type="submit" disabled={(pristine || submitting)}>Save</Button>);
+    return (<Button type="submit" disabled={(pristine || submitting)} marginBottom0>Save</Button>);
   }
 
   render() {

@@ -1,115 +1,109 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Settings } from '@folio/stripes/smart-components';
-import { stripesShape } from '@folio/stripes/core';
+import { stripesShape, TitleManager, withStripes } from '@folio/stripes/core';
+import {
+  Headline,
+  NavList,
+  NavListItem,
+  NavListSection,
+  Pane
+} from '@folio/stripes/components';
 
-import Locale from './Locale';
-import Plugins from './Plugins';
-import Bindings from './Bindings';
-import SSOSettings from './SSOSettings';
-import LocationCampuses from './LocationCampuses';
-import LocationInstitutions from './LocationInstitutions';
-import LocationLibraries from './LocationLibraries';
-import LocationLocations from './LocationLocations';
-import ServicePoints from './ServicePoints';
-
-class Organization extends React.Component {
+class SettingsRoute extends Component {
   static propTypes = {
-    stripes: stripesShape.isRequired,
+    children: PropTypes.node.isRequired,
+    location: ReactRouterPropTypes.location.isRequired,
+    stripes: stripesShape.isRequired
   }
-
-  constructor(props) {
-    super(props);
-
-    this.sections = [
-      {
-        label: <FormattedMessage id="ui-organization.settings.general.label" />,
-        pages: [
-          {
-            route: 'keys',
-            label: <FormattedMessage id="ui-organization.settings.bindings.label" />,
-            component: Bindings,
-            perm: 'ui-organization.settings.key-bindings',
-          },
-          {
-            route: 'locale',
-            label: <FormattedMessage id="ui-organization.settings.language.label" />,
-            component: Locale,
-            perm: 'ui-organization.settings.locale',
-          },
-          {
-            route: 'plugins',
-            label: <FormattedMessage id="ui-organization.settings.plugins.label" />,
-            component: Plugins,
-            perm: 'ui-organization.settings.plugins',
-          },
-          {
-            route: 'ssosettings',
-            label: <FormattedMessage id="ui-organization.settings.ssoSettings.label" />,
-            component: SSOSettings,
-            perm: 'ui-organization.settings.sso',
-          },
-          {
-            route: 'servicePoints',
-            label: <FormattedMessage id="ui-organization.settings.servicePoints.label" />,
-            component: ServicePoints,
-            perm: 'ui-organization.settings.servicepoints',
-          },
-        ],
-      },
-      {
-        label: <FormattedMessage id="ui-organization.settings.location.label" />,
-        pages: [
-          {
-            route: 'location-institutions',
-            label: <FormattedMessage id="ui-organization.settings.location.institutions" />,
-            component: LocationInstitutions,
-            perm: 'ui-organization.settings.location',
-          },
-          {
-            route: 'location-campuses',
-            label: <FormattedMessage id="ui-organization.settings.location.campuses" />,
-            component: LocationCampuses,
-            perm: 'ui-organization.settings.location',
-          },
-          {
-            route: 'location-libraries',
-            label: <FormattedMessage id="ui-organization.settings.location.libraries" />,
-            component: LocationLibraries,
-            perm: 'ui-organization.settings.location',
-          },
-          {
-            route: 'location-locations',
-            label: <FormattedMessage id="ui-organization.settings.location.locations" />,
-            component: LocationLocations,
-            perm: 'ui-organization.settings.location',
-          },
-        ],
-      }
-    ];
-  }
-  /*
-  <NavList>
-    <NavListSection activeLink={activeLink} label="Settings">
-      {navLinks}
-    </NavListSection>
-  </NavList>
-  <br /><br />
-  <NavListSection label="System information" activeLink={activeLink}>
-    <NavListItem to="/settings/about"><FormattedMessage id="stripes-core.front.about" /></NavListItem>
-  </NavListSection>
-
-  */
 
   render() {
+    const {
+      children,
+      location: { pathname },
+      stripes
+    } = this.props;
+
     return (
-      <Settings
-        {...this.props}
-        sections={this.sections}
-        paneTitle={<FormattedMessage id="ui-organization.settings.index.paneTitle" />}
-      />
+      <FormattedMessage id="ui-organization.settings.index.paneTitle">
+        {pageTitle => (
+          <TitleManager page={pageTitle}>
+            <Pane
+              defaultWidth="20%"
+              paneTitle={
+                <Headline tag="h3" size="small" margin="none">
+                  <FormattedMessage id="ui-organization.settings.index.paneTitle" />
+                </Headline>
+              }
+            >
+              <NavList>
+                <NavListSection
+                  activeLink={pathname}
+                  label={
+                    <Headline tag="h4">
+                      <FormattedMessage id="ui-organization.settings.general.label" />
+                    </Headline>
+                  }
+                >
+                  {stripes.hasPerm('ui-organization.settings.key-bindings') && (
+                    <NavListItem to="/settings/organization/keys">
+                      <FormattedMessage id="ui-organization.settings.bindings.label" />
+                    </NavListItem>
+                  )}
+                  {stripes.hasPerm('ui-organization.settings.locale') && (
+                    <NavListItem to="/settings/organization/locale">
+                      <FormattedMessage id="ui-organization.settings.language.label" />
+                    </NavListItem>
+                  )}
+                  {stripes.hasPerm('ui-organization.settings.plugins') && (
+                    <NavListItem to="/settings/organization/plugins">
+                      <FormattedMessage id="ui-organization.settings.plugins.label" />
+                    </NavListItem>
+                  )}
+                  {stripes.hasPerm('ui-organization.settings.sso') && (
+                    <NavListItem to="/settings/organization/ssosettings">
+                      <FormattedMessage id="ui-organization.settings.ssoSettings.label" />
+                    </NavListItem>
+                  )}
+                  {stripes.hasPerm('ui-organization.settings.servicepoints') && (
+                    <NavListItem to="/settings/organization/servicePoints">
+                      <FormattedMessage id="ui-organization.settings.servicePoints.label" />
+                    </NavListItem>
+                  )}
+                </NavListSection>
+                <br />
+                {stripes.hasPerm('ui-organization.settings.location') && (
+                  <NavListSection
+                    activeLink={pathname}
+                    label={
+                      <Headline tag="h4">
+                        <FormattedMessage id="ui-organization.settings.location.label" />
+                      </Headline>
+                    }
+                  >
+                    <NavListItem to="/settings/organization/location-institutions">
+                      <FormattedMessage id="ui-organization.settings.location.institutions" />
+                    </NavListItem>
+                    <NavListItem to="/settings/organization/location-campuses">
+                      <FormattedMessage id="ui-organization.settings.location.campuses" />
+                    </NavListItem>
+                    <NavListItem to="/settings/organization/location-libraries">
+                      <FormattedMessage id="ui-organization.settings.location.libraries" />
+                    </NavListItem>
+                    <NavListItem to="/settings/organization/location-locations">
+                      <FormattedMessage id="ui-organization.settings.location.locations" />
+                    </NavListItem>
+                  </NavListSection>
+                )}
+              </NavList>
+            </Pane>
+            {children}
+          </TitleManager>
+        )}
+      </FormattedMessage>
     );
   }
 }
 
-export default Organization;
+export default withStripes(SettingsRoute);

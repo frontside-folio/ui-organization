@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Field } from 'redux-form';
 import { ConfigManager } from '@folio/stripes/smart-components';
 import { Col, Row, Select } from '@folio/stripes/components';
+import { withStripes } from '@folio/stripes/core';
 import timezones from '../util/timezones';
 
 const timeZonesList = timezones.map(timezone => (
@@ -33,7 +34,6 @@ class Locale extends React.Component {
       setLocale: PropTypes.func.isRequired,
       setTimezone: PropTypes.func.isRequired,
     }).isRequired,
-    label: PropTypes.node.isRequired,
   };
 
   constructor(props) {
@@ -77,7 +77,7 @@ class Locale extends React.Component {
   render() {
     return (
       <this.configManager
-        label={this.props.label}
+        label={<FormattedMessage id="ui-organization.settings.language.label" />}
         moduleName="ORG"
         getInitialValues={this.getInitialValues}
         configName="localeSettings"
@@ -119,4 +119,4 @@ class Locale extends React.Component {
   }
 }
 
-export default Locale;
+export default withStripes(Locale);

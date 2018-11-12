@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { ControlledVocab } from '@folio/stripes/smart-components';
 import { Select } from '@folio/stripes/components';
+import stripesConnect from '../connect';
 
 class LocationCampuses extends React.Component {
   static manifest = {
@@ -128,4 +129,4 @@ class LocationCampuses extends React.Component {
   }
 }
 
-export default LocationCampuses;
+export default stripesConnect(LocationCampuses);
